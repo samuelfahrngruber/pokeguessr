@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 
 import { usePokemonListStore, type Pokemon } from '@/stores/pokemon-list';
+import { useGameStore } from '@/stores/game';
 import { boundedValue } from '../utils/bounded-value';
 
 const props = defineProps<{
@@ -9,6 +10,7 @@ const props = defineProps<{
 }>();
 
 const pokemonListStore = usePokemonListStore();
+const gameStore = useGameStore();
 
 const searchTerm = ref('');
 
@@ -23,12 +25,20 @@ const changeSuggestion = (delta: number) => (ev: KeyboardEvent) => {
   highlightedSuggestion.value = boundedValue(0, newSuggestionIdx, suggestions.value.length - 1);
 };
 
-const submitAnswer = (ev: KeyboardEvent) => {};
+const submitAnswer = (ev: KeyboardEvent) => {
+  const answer = suggestions.value[highlightedSuggestion.value];
+  if (answer) {
+    searchTerm.value = '';
+    gameStore.submitAnswer(answer);
+  }
+};
 </script>
 
 <template>
-  <div class="range-selector">
+  <div class="pokemon-selector">
+    <label for="pokemon-search-bar">Your Guess: </label>
     <input
+      id="pokemon-search-bar"
       type="text"
       v-model="searchTerm"
       @keydown.down="changeSuggestion(+1)($event)"
@@ -46,7 +56,7 @@ const submitAnswer = (ev: KeyboardEvent) => {};
 </template>
 
 <style scoped>
-.range-selector {
+.pokemon-selector {
   padding: 8px;
   border: thin solid black;
 }

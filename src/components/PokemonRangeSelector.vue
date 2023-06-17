@@ -15,11 +15,14 @@ const applyRange = () => {
 
 <template>
   <div class="range-selector">
-    <label for="from-input"></label>
+    <span>Select pokemon # range</span>
+    <br />
+    <label for="from-input">From: </label>
     <input id="from-input" type="number" v-model.number="from" />
-    <label for="to-input"></label>
+    <label for="to-input">To: </label>
     <input id="to-input" type="number" v-model.number="to" />
-    <button @click="applyRange">refresh</button>
+    <br />
+    <button @click="applyRange">apply</button>
   </div>
 </template>
 
