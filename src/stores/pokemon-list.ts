@@ -9,27 +9,30 @@ const extractNum = (rawPokemon: any) => rawPokemon.id;
 const extractImgUrl = (rawPokemon: any) => rawPokemon.sprites.front_default;
 const extractTags = (rawPokemon: any) => rawPokemon.names.map((nameInfo: any) => nameInfo.name);
 
-interface Pokemon {
+export interface Pokemon {
   name: string;
   num: number;
   imgUrl: string;
   tags: string[];
 }
 
-interface PokemonList {
+export interface PokemonList {
   pokemons: Pokemon[];
 }
 
-export const useSettingsStore = defineStore('settings', () => {
+export const usePokemonListStore = defineStore('pokemon-list', () => {
   const list = ref<PokemonList>({ pokemons: [] });
 
-  const search = computed((term: string) =>
-    list.value.pokemons.filter(
+  const search = computed(() => (term: string) => {
+    if (term.trim().length === 0) {
+      return [];
+    }
+    return list.value.pokemons.filter(
       (pokemon) =>
         pokemon.name.toLocaleLowerCase().includes(term.toLowerCase()) ||
         pokemon.tags.some((tag) => tag.toLocaleLowerCase().includes(term.toLowerCase())),
-    ),
-  );
+    );
+  });
 
   const fetchRange = async (from: number, to: number) => {
     const fetchedPokemonPromises: Promise<any>[] = [];
