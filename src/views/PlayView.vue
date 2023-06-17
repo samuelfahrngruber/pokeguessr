@@ -3,7 +3,7 @@ import MyComponent from '../components/MyComponent.vue';
 </script>
 
 <template>
-  <h3>This is the home page</h3>
+  <h3>This is the play page</h3>
   <MyComponent></MyComponent>
 </template>
 
