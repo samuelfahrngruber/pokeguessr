@@ -25,8 +25,7 @@ const changeSuggestion = (delta: number) => (ev: KeyboardEvent) => {
   highlightedSuggestion.value = boundedValue(0, newSuggestionIdx, suggestions.value.length - 1);
 };
 
-const submitAnswer = (ev: KeyboardEvent) => {
-  const answer = suggestions.value[highlightedSuggestion.value];
+const submitAnswer = (answer: Pokemon | undefined) => {
   if (answer) {
     searchTerm.value = '';
     gameStore.submitAnswer(answer);
@@ -43,12 +42,12 @@ const submitAnswer = (ev: KeyboardEvent) => {
       v-model="searchTerm"
       @keydown.down="changeSuggestion(+1)($event)"
       @keydown.up="changeSuggestion(-1)($event)"
-      @keydown.enter="submitAnswer"
+      @keydown.enter="submitAnswer(suggestions[highlightedSuggestion])"
     />
     <ul v-for="(pokemon, idx) in suggestions">
       <li>
         <div :class="idx === highlightedSuggestion ? 'highlighted-suggestion' : undefined">
-          {{ pokemon.name }}
+          {{ pokemon.name }} <button @click="submitAnswer(pokemon)">pick</button>
         </div>
       </li>
     </ul>
