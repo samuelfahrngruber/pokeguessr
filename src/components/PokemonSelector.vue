@@ -27,7 +27,7 @@ const submitAnswer = (ev: KeyboardEvent) => {};
 </script>
 
 <template>
-  <div>
+  <div class="range-selector">
     <input
       type="text"
       v-model="searchTerm"
@@ -46,8 +46,12 @@ const submitAnswer = (ev: KeyboardEvent) => {};
 </template>
 
 <style scoped>
+.range-selector {
+  padding: 8px;
+  border: thin solid black;
+}
 .highlighted-suggestion {
-  background-color: red;
+  background-color: blue;
   color: white;
 }
 </style>

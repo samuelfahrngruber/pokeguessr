@@ -35,6 +35,9 @@ export const usePokemonListStore = defineStore('pokemon-list', () => {
   });
 
   const fetchRange = async (from: number, to: number) => {
+    if (from < 1 || to < from) {
+      throw new Error('You cannot fetch this range of Pokemon!');
+    }
     const fetchedPokemonPromises: Promise<any>[] = [];
     const fetchedSpeciesPromises: Promise<any>[] = [];
     for (let i = from; i <= to; i++) {
