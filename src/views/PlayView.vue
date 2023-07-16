@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { usePokemonListStore } from '@/stores/pokemon-list';
+import { filterByGeneration, usePokemonListStore } from '@/stores/pokemon-list';
 import PokemonSelector from '../components/PokemonSelector.vue';
 import PokemonRangeSelector from '../components/PokemonRangeSelector.vue';
 import CurrentQuestion from '../components/CurrentQuestion.vue';
 import PastQuestions from '../components/PastQuestions.vue';
 
 const pokemonListStore = usePokemonListStore();
-pokemonListStore.fetchRange(1, 151);
+pokemonListStore.fetch(filterByGeneration(1, 1));
 
 const onPokemonSelected = () => {};
 </script>

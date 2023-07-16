@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { usePokemonListStore } from '@/stores/pokemon-list';
+import { filterByGeneration, usePokemonListStore } from '@/stores/pokemon-list';
 
 const pokemonListStore = usePokemonListStore();
 
 const from = ref(1);
-const to = ref(151);
+const to = ref(3);
 
 const applyRange = () => {
-  pokemonListStore.fetchRange(from.value, to.value);
+  pokemonListStore.fetch(filterByGeneration(from.value, to.value));
 };
 </script>
 
 <template>
   <div class="range-selector">
-    <span>Select pokemon # range</span>
+    <span>Select pokemon generation range</span>
     <br />
     <label for="from-input">From: </label>
     <input id="from-input" type="number" v-model.number="from" />
