@@ -1,4 +1,22 @@
+html {
+  --pg-background-color-neutral: #ffffff;
+
+  --pg-text-color-neutral: #000000;
+  --pg-text-color-success: #008800;
+  --pg-text-color-fail: #880000;
+}
+
+html[data-theme='dark'] {
+  --pg-background-color-neutral: #000000;
+
+  --pg-text-color-neutral: #ffffff;
+  --pg-text-color-success: #66ff66;
+  --pg-text-color-fail: #ff6666;
+}
+
 body {
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--pg-background-color-neutral);
+  color: var(--pg-text-color-neutral);
 }

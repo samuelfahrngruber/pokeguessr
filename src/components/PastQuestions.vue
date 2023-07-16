@@ -28,9 +28,9 @@ const gameStore = useGameStore();
   border: thin solid black;
 }
 .correct-question {
-  color: green;
+  color: var(--pg-text-color-success);
 }
 .incorrect-question {
-  color: red;
+  color: var(--pg-text-color-fail);
 }
 </style>
