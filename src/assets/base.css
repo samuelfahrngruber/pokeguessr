@@ -1,5 +1,6 @@
 html {
   --pg-background-color-neutral: #ffffff;
+  --pg-background-color-accent: #ff99ff;
 
   --pg-text-color-neutral: #000000;
   --pg-text-color-success: #008800;
@@ -8,6 +9,7 @@ html {
 
 html[data-theme='dark'] {
   --pg-background-color-neutral: #000000;
+  --pg-background-color-accent: #440044;
 
   --pg-text-color-neutral: #ffffff;
   --pg-text-color-success: #66ff66;

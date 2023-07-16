@@ -8,13 +8,13 @@ const pokemonListStore = usePokemonListStore();
 const from = ref(1);
 const to = ref(3);
 
-const applyRange = () => {
+const applyFilter = () => {
   pokemonListStore.fetch(filterByGeneration(from.value, to.value));
 };
 </script>
 
 <template>
-  <div class="range-selector">
+  <div class="filter">
     <span>Select pokemon generation range</span>
     <br />
     <label for="from-input">From: </label>
@@ -22,12 +22,12 @@ const applyRange = () => {
     <label for="to-input">To: </label>
     <input id="to-input" type="number" v-model.number="to" />
     <br />
-    <button @click="applyRange">apply</button>
+    <button @click="applyFilter">apply</button>
   </div>
 </template>
 
 <style scoped>
-.range-selector {
+.filter {
   padding: 8px;
   border: thin solid black;
 }
