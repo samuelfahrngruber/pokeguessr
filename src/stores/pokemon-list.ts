@@ -1,12 +1,7 @@
-import { ref, computed } from 'vue';
+import { getIconUrl } from '@/utils/urls';
 import { defineStore } from 'pinia';
-
-const getPokemonUrl = (num: number) => `https://pokeapi.co/api/v2/pokemon/${num}`;
-const getSpeciesUrl = (num: number) => `https://pokeapi.co/api/v2/pokemon-species/${num}`;
-// This is only to avoid round trips through multiple request just for the icon
-const getIconUrl = (num: number) =>
-  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/${num}.png`;
-const getGenerationUrl = (num: number) => `https://pokeapi.co/api/v2/generation/${num}`;
+import { computed, ref } from 'vue';
+import type { GenerationList } from './generation-list';
 
 const extractName = (rawPokemon: any) => rawPokemon.name;
 const extractNum = (rawPokemon: any) => rawPokemon.id;
@@ -24,43 +19,6 @@ export interface PokemonList {
   pokemons: Pokemon[];
 }
 
-export interface PokemonFilter {
-  (): Promise<string[]>;
-}
-
-export const filterByNumber =
-  (from: number, to: number): PokemonFilter =>
-  async () => {
-    if (from < 1 || to < from) {
-      throw new Error('You cannot fetch this range of Pokemon!');
-    }
-    const urls = [];
-    for (let i = from; i <= to; i++) {
-      urls.push(getSpeciesUrl(i));
-    }
-    return urls;
-  };
-
-export const filterByGeneration =
-  (fromGen: number, toGen: number): PokemonFilter =>
-  async () => {
-    if (fromGen < 1 || toGen < fromGen) {
-      throw new Error('You cannot fetch this range of Generations!');
-    }
-    const generationPromises: Promise<any>[] = [];
-    for (let i = fromGen; i <= toGen; i++) {
-      generationPromises.push(fetch(getGenerationUrl(i)).then((res) => res.json()));
-    }
-    const generations = await Promise.all(generationPromises);
-    const urls: string[] = [];
-    generations.forEach((gen) =>
-      gen.pokemon_species.forEach((species: { name: string; url: string }) =>
-        urls.push(species.url),
-      ),
-    );
-    return urls;
-  };
-
 export const usePokemonListStore = defineStore('pokemon-list', () => {
   const list = ref<PokemonList>({ pokemons: [] });
 
@@ -75,8 +33,11 @@ export const usePokemonListStore = defineStore('pokemon-list', () => {
     );
   });
 
-  const fetchPokemonList = async (filter: PokemonFilter) => {
-    const speciesUrls = await filter();
+  const fetchPokemonList = async (generations: GenerationList) => {
+    const speciesUrls: string[] = [];
+    generations.generations.forEach((gen) => {
+      gen.speciesUrls.forEach((speciesUrl) => speciesUrls.push(speciesUrl));
+    });
     const fetchedSpeciesPromises = speciesUrls.map((speciesUrl) =>
       fetch(speciesUrl).then((res) => res.json()),
     );

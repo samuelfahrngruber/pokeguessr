@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { filterByGeneration, usePokemonListStore } from '@/stores/pokemon-list';
+import { useGenerationListStore } from '@/stores/generation-list';
 
-const pokemonListStore = usePokemonListStore();
+const generationListStore = useGenerationListStore();
 
 const from = ref(1);
 const to = ref(3);
 
 const applyFilter = () => {
-  pokemonListStore.fetch(filterByGeneration(from.value, to.value));
+  generationListStore.fetch(Array.from({ length: to.value - from.value + 1 }, (_, idx) => idx + 1));
 };
 </script>
 
