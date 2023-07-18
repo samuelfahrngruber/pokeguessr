@@ -5,9 +5,9 @@ const gameStore = useGameStore();
 </script>
 
 <template>
-  <div class="past-questions">
-    <ul v-for="round in gameStore.game.pastRounds">
-      <li>
+  <div>
+    <ul>
+      <li v-for="round in gameStore.game.pastRounds">
         <div v-if="round.correct" class="correct-question">
           {{ `${round.question} - Correct! It's ${round.answer.name}!` }}
         </div>
@@ -23,10 +23,6 @@ const gameStore = useGameStore();
 </template>
 
 <style scoped>
-.past-questions {
-  padding: 8px;
-  border: thin solid black;
-}
 .correct-question {
   color: var(--pg-text-color-success);
 }

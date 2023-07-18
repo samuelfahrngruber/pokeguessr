@@ -1,34 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import { useGenerationListStore } from '@/stores/generation-list';
+import { usePokemonListStore } from '@/stores/pokemon-list';
 
 const generationListStore = useGenerationListStore();
-
-const from = ref(1);
-const to = ref(3);
-
-const applyFilter = () => {
-  generationListStore.fetch(Array.from({ length: to.value - from.value + 1 }, (_, idx) => idx + 1));
-};
+const pokemonListStore = usePokemonListStore();
 </script>
 
 <template>
   <div class="filter">
     <span>Select pokemon generation range</span>
-    <br />
-    <label for="from-input">From: </label>
-    <input id="from-input" type="number" v-model.number="from" />
-    <label for="to-input">To: </label>
-    <input id="to-input" type="number" v-model.number="to" />
-    <br />
-    <button @click="applyFilter">apply</button>
+    <ul class="gen-list">
+      <li class="gen-item" v-for="gen in generationListStore.list.generations">
+        <label>
+          <input
+            type="checkbox"
+            @change="(e: any) => generationListStore.changeGenerationSelection(gen.num, e.target.checked)"
+          />
+          {{ gen.name }}
+        </label>
+      </li>
+    </ul>
+    <button @click="() => pokemonListStore.fetch()">apply</button>
   </div>
 </template>
 
-<style scoped>
-.filter {
-  padding: 8px;
-  border: thin solid black;
-}
-</style>
+<style scoped></style>

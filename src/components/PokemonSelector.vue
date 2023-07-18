@@ -5,10 +5,6 @@ import { usePokemonListStore, type Pokemon } from '@/stores/pokemon-list';
 import { useGameStore } from '@/stores/game';
 import { boundedValue } from '../utils/bounded-value';
 
-const props = defineProps<{
-  onSelect: (pokemon: Pokemon) => void;
-}>();
-
 const pokemonListStore = usePokemonListStore();
 const gameStore = useGameStore();
 
@@ -34,7 +30,7 @@ const submitAnswer = (answer: Pokemon | undefined) => {
 </script>
 
 <template>
-  <div class="pokemon-selector">
+  <div>
     <label for="pokemon-search-bar">Your Guess: </label>
     <input
       id="pokemon-search-bar"
@@ -55,12 +51,8 @@ const submitAnswer = (answer: Pokemon | undefined) => {
 </template>
 
 <style scoped>
-.pokemon-selector {
-  padding: 8px;
-  border: thin solid black;
-}
 .highlighted-suggestion {
-  background-color: blue;
-  color: white;
+  background-color: var(--pg-background-color-accent);
+  color: var(--pg-text-color-onaccent);
 }
 </style>

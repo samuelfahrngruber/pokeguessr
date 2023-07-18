@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
 import DarkModeSwitch from './components/DarkModeSwitch.vue';
 </script>
 
@@ -7,11 +7,6 @@ import DarkModeSwitch from './components/DarkModeSwitch.vue';
   <header>
     <h1>Pokeguessr</h1>
     <DarkModeSwitch />
-    <nav>
-      <ul>
-        <li><RouterLink to="/">Home</RouterLink></li>
-      </ul>
-    </nav>
   </header>
   <RouterView />
 </template>

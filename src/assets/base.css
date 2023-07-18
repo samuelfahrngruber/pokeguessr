@@ -1,8 +1,20 @@
 html {
+  --pg-border-radius: 4px;
+  --pg-border-width: 1px;
+
+  --pg-spacing-1: 4px;
+  --pg-spacing-2: 8px;
+  --pg-spacing-3: 12px;
+  --pg-spacing-4: 16px;
+
+  /* ========== Light theme specific ========== */
   --pg-background-color-neutral: #ffffff;
   --pg-background-color-accent: #ff99ff;
 
+  --pg-border-color-neutral: #000000;
+
   --pg-text-color-neutral: #000000;
+  --pg-text-color-onaccent: #000000;
   --pg-text-color-success: #008800;
   --pg-text-color-fail: #880000;
 }
@@ -11,7 +23,10 @@ html[data-theme='dark'] {
   --pg-background-color-neutral: #000000;
   --pg-background-color-accent: #440044;
 
+  --pg-border-color-neutral: #ffffff;
+
   --pg-text-color-neutral: #ffffff;
+  --pg-text-color-onaccent: #ffffff;
   --pg-text-color-success: #66ff66;
   --pg-text-color-fail: #ff6666;
 }

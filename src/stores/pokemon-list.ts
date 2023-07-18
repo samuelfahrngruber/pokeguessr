@@ -1,7 +1,7 @@
 import { getIconUrl } from '@/utils/urls';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { GenerationList } from './generation-list';
+import { useGenerationListStore } from './generation-list';
 
 const extractName = (rawPokemon: any) => rawPokemon.name;
 const extractNum = (rawPokemon: any) => rawPokemon.id;
@@ -33,11 +33,16 @@ export const usePokemonListStore = defineStore('pokemon-list', () => {
     );
   });
 
-  const fetchPokemonList = async (generations: GenerationList) => {
+  const generationListStore = useGenerationListStore();
+
+  const fetchPokemonList = async () => {
     const speciesUrls: string[] = [];
-    generations.generations.forEach((gen) => {
-      gen.speciesUrls.forEach((speciesUrl) => speciesUrls.push(speciesUrl));
-    });
+    const generations = generationListStore.list;
+    generations.generations
+      .filter((gen) => generations.selectedGenerations.includes(gen.num))
+      .forEach((gen) => {
+        gen.speciesUrls.forEach((speciesUrl) => speciesUrls.push(speciesUrl));
+      });
     const fetchedSpeciesPromises = speciesUrls.map((speciesUrl) =>
       fetch(speciesUrl).then((res) => res.json()),
     );

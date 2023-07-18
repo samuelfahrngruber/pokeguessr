@@ -18,7 +18,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ 
 </script>
 
 <template>
-  <input type="checkbox" v-model="prefersDark" @change="applyDarkMode" />
+  <label><input type="checkbox" v-model="prefersDark" @change="applyDarkMode" />Dark Mode</label>
 </template>
 
 <style scoped></style>

@@ -6,25 +6,21 @@ import PokemonFilter from '../components/PokemonFilter.vue';
 import PokemonSelector from '../components/PokemonSelector.vue';
 
 const generationListStore = useGenerationListStore();
-generationListStore.fetch([1]);
-
-const onPokemonSelected = () => {};
+generationListStore.fetch();
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <h3>This is the play page</h3>
+    <hr />
     <PokemonFilter></PokemonFilter>
+    <hr />
     <CurrentQuestion></CurrentQuestion>
-    <PokemonSelector :on-select="onPokemonSelected"></PokemonSelector>
+    <hr />
+    <PokemonSelector></PokemonSelector>
+    <hr />
     <PastQuestions></PastQuestions>
   </div>
 </template>
 
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-</style>
+<style scoped></style>
