@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
+import PokemonIcon from './PokemonIcon.vue';
 import { usePokemonListStore, type Pokemon } from '@/stores/pokemon-list';
 import { useGameStore } from '@/stores/game';
 import { boundedValue } from '../utils/bounded-value';
@@ -43,7 +44,9 @@ const submitAnswer = (answer: Pokemon | undefined) => {
     <ul v-for="(pokemon, idx) in suggestions">
       <li>
         <div :class="idx === highlightedSuggestion ? 'highlighted-suggestion' : undefined">
-          {{ pokemon.name }} <button @click="submitAnswer(pokemon)">pick</button>
+          {{ pokemon.name }}
+          <button @click="submitAnswer(pokemon)">pick</button>
+          <PokemonIcon :pokemon="pokemon"></PokemonIcon>
         </div>
       </li>
     </ul>

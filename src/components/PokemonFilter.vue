@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGenerationListStore } from '@/stores/generation-list';
 import { usePokemonListStore } from '@/stores/pokemon-list';
+import PokemonIcon from './PokemonIcon.vue';
 
 const generationListStore = useGenerationListStore();
 const pokemonListStore = usePokemonListStore();
@@ -17,6 +18,7 @@ const pokemonListStore = usePokemonListStore();
             @change="(e: any) => generationListStore.changeGenerationSelection(gen.num, e.target.checked)"
           />
           {{ gen.name }}
+          <!-- pokemon icon -->
         </label>
       </li>
     </ul>

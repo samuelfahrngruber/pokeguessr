@@ -14,6 +14,34 @@ export interface GenerationList {
   selectedGenerations: number[];
 }
 
+const getGenerationIconUrlSmart = (gen: any) =>
+  getIconUrl(Math.max(...gen.pokemon_species.map((species: any) => extractIdFromUrl(species.url))));
+
+const getGenerationIconUrl = (gen: any) => {
+  switch (gen.id) {
+    case 1:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png'; // mewtwo
+    case 2:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/245.png'; // suicune
+    case 3:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png'; // rayquaza
+    case 4:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10007.png'; // giratina origin
+    case 5:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/646.png'; // kyurem
+    case 6:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/720.png'; // hoopa
+    case 7:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/789.png'; // cosmog
+    case 8:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/897.png'; // spectrier
+    case 9:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/967.png'; // cyclizar
+    default:
+      return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png';
+  }
+};
+
 export const useGenerationListStore = defineStore('generation-list', () => {
   const list = ref<GenerationList>({ selectedGenerations: [1], generations: [] });
 
@@ -28,7 +56,7 @@ export const useGenerationListStore = defineStore('generation-list', () => {
       generations: generations.map((gen) => ({
         name: `Gen #${gen.id}`,
         num: gen.id,
-        icon: getIconUrl(extractIdFromUrl(gen.pokemon_species[gen.pokemon_species.length - 1].url)),
+        icon: getGenerationIconUrl(gen),
         speciesUrls: gen.pokemon_species.map((species: any) => species.url),
       })),
     };
