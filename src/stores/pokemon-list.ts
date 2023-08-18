@@ -39,7 +39,7 @@ export const usePokemonListStore = defineStore('pokemon-list', () => {
     const speciesUrls: string[] = [];
     const generations = generationListStore.list;
     generations.generations
-      .filter((gen) => generations.selectedGenerations.includes(gen.num))
+      .filter((gen) => generationListStore.isSelected(gen))
       .forEach((gen) => {
         gen.speciesUrls.forEach((speciesUrl) => speciesUrls.push(speciesUrl));
       });

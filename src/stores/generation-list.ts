@@ -11,7 +11,7 @@ export interface Generation {
 
 export interface GenerationList {
   generations: Generation[];
-  selectedGenerations: number[];
+  selectedGenerations: Generation[];
 }
 
 const getGenerationIconUrlSmart = (gen: any) =>
@@ -43,52 +43,49 @@ const getGenerationIconUrl = (gen: any) => {
 };
 
 export const useGenerationListStore = defineStore('generation-list', () => {
-  const list = ref<GenerationList>({ selectedGenerations: [1], generations: [] });
+  const list = ref<GenerationList>({ selectedGenerations: [], generations: [] });
+
+  const isSelected = (gen: Generation) =>
+    list.value.selectedGenerations.some((selectedGen) => selectedGen.num === gen.num);
 
   const fetchGenerations = async () => {
     const allGenerationStubs = await fetch(getGenerationsUrl()).then((res) => res.json());
     const generationPromises = allGenerationStubs.results.map((genStub: any) =>
       fetch(genStub.url).then((res) => res.json()),
     );
-    const generations = await Promise.all(generationPromises);
+    const generationsResponse = await Promise.all(generationPromises);
+    const generations = generationsResponse.map((gen) => ({
+      name: `Gen #${gen.id}`,
+      num: gen.id,
+      icon: getGenerationIconUrl(gen),
+      speciesUrls: gen.pokemon_species.map((species: any) => species.url),
+    }));
     list.value = {
-      selectedGenerations: list.value.selectedGenerations,
-      generations: generations.map((gen) => ({
-        name: `Gen #${gen.id}`,
-        num: gen.id,
-        icon: getGenerationIconUrl(gen),
-        speciesUrls: gen.pokemon_species.map((species: any) => species.url),
-      })),
+      selectedGenerations: [generations[0]],
+      generations,
     };
   };
 
-  const changeGenerationSelection = (generationNum: number, selected: boolean) => {
+  const changeGenerationSelection = (generation: Generation, selected: boolean) => {
     if (selected) {
       list.value = {
         ...list.value,
-        selectedGenerations: [...list.value.selectedGenerations, generationNum],
+        selectedGenerations: [...list.value.selectedGenerations, generation],
       };
     } else {
       list.value = {
         ...list.value,
         selectedGenerations: list.value.selectedGenerations.filter(
-          (selectedGenNum) => selectedGenNum != generationNum,
+          (selectedGen) => selectedGen.num != generation.num,
         ),
       };
     }
   };
 
-  const selectGeneration = (generationNum: number) =>
-    changeGenerationSelection(generationNum, true);
-
-  const deselectGeneration = (generationNum: number) =>
-    changeGenerationSelection(generationNum, false);
-
   return {
     list,
     fetch: fetchGenerations,
     changeGenerationSelection,
-    selectGeneration,
-    deselectGeneration,
+    isSelected,
   };
 });

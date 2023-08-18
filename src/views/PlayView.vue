@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { useGenerationListStore } from '@/stores/generation-list';
-import CurrentQuestion from '../components/CurrentQuestion.vue';
-import PastQuestions from '../components/PastQuestions.vue';
-import PokemonFilter from '../components/PokemonFilter.vue';
-import PokemonSelector from '../components/PokemonSelector.vue';
 import CardContainer from '@/components/CardContainer.vue';
+import CurrentQuestion from '@/components/CurrentQuestion.vue';
+import PastQuestions from '@/components/PastQuestions.vue';
+import PokemonFilter from '@/components/PokemonFilter.vue';
+import PokemonSelector from '@/components/PokemonSelector.vue';
+import { useGenerationListStore } from '@/stores/generation-list';
+import { usePokemonListStore } from '@/stores/pokemon-list';
 
 const generationListStore = useGenerationListStore();
+const pokemonListStore = usePokemonListStore();
+
 generationListStore.fetch();
+pokemonListStore.fetch();
 </script>
 
 <template>
