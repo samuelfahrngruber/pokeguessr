@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useGenerationListStore } from '@/stores/generation-list';
 import { usePokemonListStore } from '@/stores/pokemon-list';
-import PokemonIcon from './PokemonIcon.vue';
 
 const generationListStore = useGenerationListStore();
 const pokemonListStore = usePokemonListStore();
@@ -11,7 +10,7 @@ const pokemonListStore = usePokemonListStore();
   <div class="filter">
     <span>Select pokemon generation range</span>
     <ul class="gen-list">
-      <li class="gen-item" v-for="gen in generationListStore.list.generations">
+      <li class="gen-item" v-for="gen in generationListStore.list.generations" :key="gen.num">
         <label>
           <input
             type="checkbox"

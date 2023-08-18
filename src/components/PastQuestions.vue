@@ -7,7 +7,7 @@ const gameStore = useGameStore();
 <template>
   <div>
     <ul>
-      <li v-for="round in gameStore.game.pastRounds">
+      <li v-for="(round, idx) in gameStore.game.pastRounds" :key="idx">
         <div v-if="round.correct" class="correct-question">
           {{ `${round.question} - Correct! It's ${round.answer.name}!` }}
         </div>

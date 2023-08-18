@@ -41,7 +41,7 @@ const submitAnswer = (answer: Pokemon | undefined) => {
       @keydown.up="changeSuggestion(-1)($event)"
       @keydown.enter="submitAnswer(suggestions[highlightedSuggestion])"
     />
-    <ul v-for="(pokemon, idx) in suggestions">
+    <ul v-for="(pokemon, idx) in suggestions" :key="pokemon.num">
       <li>
         <div :class="idx === highlightedSuggestion ? 'highlighted-suggestion' : undefined">
           {{ pokemon.name }}

@@ -4,6 +4,7 @@ import CurrentQuestion from '../components/CurrentQuestion.vue';
 import PastQuestions from '../components/PastQuestions.vue';
 import PokemonFilter from '../components/PokemonFilter.vue';
 import PokemonSelector from '../components/PokemonSelector.vue';
+import CardContainer from '@/components/CardContainer.vue';
 
 const generationListStore = useGenerationListStore();
 generationListStore.fetch();
@@ -11,15 +12,21 @@ generationListStore.fetch();
 
 <template>
   <div>
-    <h3>This is the play page</h3>
-    <hr />
-    <PokemonFilter></PokemonFilter>
-    <hr />
-    <CurrentQuestion></CurrentQuestion>
-    <hr />
-    <PokemonSelector></PokemonSelector>
-    <hr />
-    <PastQuestions></PastQuestions>
+    <CardContainer>
+      <h3>This is the play page</h3>
+    </CardContainer>
+    <CardContainer>
+      <PokemonFilter></PokemonFilter>
+    </CardContainer>
+    <CardContainer>
+      <CurrentQuestion></CurrentQuestion>
+    </CardContainer>
+    <CardContainer>
+      <PokemonSelector></PokemonSelector>
+    </CardContainer>
+    <CardContainer>
+      <PastQuestions></PastQuestions>
+    </CardContainer>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 html {
   --pg-border-radius: 4px;
   --pg-border-width: 1px;
+  --pg-border-style: solid;
 
   --pg-spacing-1: 4px;
   --pg-spacing-2: 8px;
