@@ -4,19 +4,23 @@ import DarkModeSwitch from './DarkModeSwitch.vue';
 
 <template>
   <div class="header-container">
-    <h1>Pokeguessr</h1>
+    <h1 class="title">Pokeguessr</h1>
     <DarkModeSwitch />
   </div>
 </template>
 
 <style scoped>
 .header-container {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   background-color: var(--pg-background-color-accent);
   color: var(--pg-text-color-onaccent);
+
+  padding: var(--pg-spacing-m);
+}
+.title {
+  margin: 0;
 }
 </style>

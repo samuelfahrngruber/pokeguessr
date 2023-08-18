@@ -43,7 +43,7 @@ const submitAnswer = (answer: Pokemon | undefined) => {
     />
     <ul v-for="(pokemon, idx) in suggestions" :key="pokemon.num">
       <li>
-        <div :class="idx === highlightedSuggestion ? 'highlighted-suggestion' : undefined">
+        <div :class="idx === highlightedSuggestion ? 'highlighted suggestion' : 'suggestion'">
           {{ pokemon.name }}
           <button @click="submitAnswer(pokemon)">pick</button>
           <PokemonIcon :pokemon="pokemon"></PokemonIcon>
@@ -54,7 +54,11 @@ const submitAnswer = (answer: Pokemon | undefined) => {
 </template>
 
 <style scoped>
-.highlighted-suggestion {
+.suggestion {
+  display: flex;
+  align-items: center;
+}
+.highlighted {
   background-color: var(--pg-background-color-accent);
   color: var(--pg-text-color-onaccent);
 }
