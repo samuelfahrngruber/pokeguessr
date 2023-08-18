@@ -1,12 +1,12 @@
 html {
+  /* ========== General variables ========== */
   --pg-border-radius: 4px;
   --pg-border-width: 1px;
   --pg-border-style: solid;
 
-  --pg-spacing-1: 4px;
-  --pg-spacing-2: 8px;
-  --pg-spacing-3: 12px;
-  --pg-spacing-4: 16px;
+  --pg-spacing-s: 4px;
+  --pg-spacing-m: 8px;
+  --pg-spacing-l: 12px;
 
   /* ========== Light theme specific ========== */
   --pg-background-color-neutral: #ffffff;
@@ -37,4 +37,9 @@ body {
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   background-color: var(--pg-background-color-neutral);
   color: var(--pg-text-color-neutral);
+}
+
+/* ========== remove default styles ========== */
+body {
+  margin: 0;
 }

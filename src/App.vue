@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import DarkModeSwitch from './components/DarkModeSwitch.vue';
+import AppHeader from './components/AppHeader.vue';
 </script>
 
 <template>
   <header>
-    <h1>Pokeguessr</h1>
-    <DarkModeSwitch />
+    <AppHeader></AppHeader>
   </header>
   <RouterView />
 </template>

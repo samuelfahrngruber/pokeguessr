@@ -11,13 +11,8 @@ generationListStore.fetch();
 </script>
 
 <template>
-  <div>
-    <CardContainer>
-      <h3>This is the play page</h3>
-    </CardContainer>
-    <CardContainer>
-      <PokemonFilter></PokemonFilter>
-    </CardContainer>
+  <div class="game-container">
+    <PokemonFilter></PokemonFilter>
     <CardContainer>
       <CurrentQuestion></CurrentQuestion>
     </CardContainer>
@@ -30,4 +25,11 @@ generationListStore.fetch();
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.game-container {
+  display: flex;
+  flex-direction: column;
+  padding: var(--pg-spacing-m);
+  gap: var(--pg-spacing-m);
+}
+</style>
