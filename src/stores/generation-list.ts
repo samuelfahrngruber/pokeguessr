@@ -1,4 +1,4 @@
-import { extractIdFromUrl, getGenerationsUrl, getIconUrl } from '@/utils/urls';
+import { getGenerationsUrl } from '@/utils/urls';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
@@ -13,9 +13,6 @@ export interface GenerationList {
   generations: Generation[];
   selectedGenerations: Generation[];
 }
-
-const getGenerationIconUrlSmart = (gen: any) =>
-  getIconUrl(Math.max(...gen.pokemon_species.map((species: any) => extractIdFromUrl(species.url))));
 
 const getGenerationIconUrl = (gen: any) => {
   switch (gen.id) {

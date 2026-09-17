@@ -18,7 +18,7 @@ const changeSuggestion = (delta: number) => (ev: KeyboardEvent) => {
   if (delta !== 0) {
     ev.preventDefault();
   }
-  let newSuggestionIdx = highlightedSuggestion.value + delta;
+  const newSuggestionIdx = highlightedSuggestion.value + delta;
   highlightedSuggestion.value = boundedValue(0, newSuggestionIdx, suggestions.value.length - 1);
 };
 
