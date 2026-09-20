@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 import { usePokemonListStore, type Pokemon } from './pokemon-list';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { pickRandom } from '@/utils/pick-random';
 
 export interface Round {
@@ -32,6 +32,15 @@ export const useGameStore = defineStore('game', () => {
   };
 
   const game = ref<Game>({ currentRound: generateNewQuestion(), pastRounds: [] });
+
+  watch(
+    () => pokemonListStore.list.pokemons,
+    () => {
+      if (!game.value.currentRound) {
+        game.value.currentRound = generateNewQuestion();
+      }
+    },
+  );
 
   const submitAnswer = (guess: Pokemon | undefined) => {
     if (game.value.currentRound) {

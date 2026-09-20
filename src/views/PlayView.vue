@@ -10,8 +10,7 @@ import { usePokemonListStore } from '@/stores/pokemon-list';
 const generationListStore = useGenerationListStore();
 const pokemonListStore = usePokemonListStore();
 
-generationListStore.fetch();
-pokemonListStore.fetch();
+generationListStore.fetch().then(() => pokemonListStore.fetch());
 </script>
 
 <template>
