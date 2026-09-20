@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGameStore } from '@/stores/game';
+import PokemonName from './PokemonName.vue';
 
 const gameStore = useGameStore();
 </script>
@@ -9,13 +10,15 @@ const gameStore = useGameStore();
     <ul>
       <li v-for="(round, idx) in gameStore.game.pastRounds" :key="idx">
         <div v-if="round.correct" class="correct-question">
-          {{ `${round.question} - Correct! It's ${round.answer.name}!` }}
+          {{ `${round.question} - Correct! It's ` }}<PokemonName :pokemon="round.answer" />!
         </div>
         <div v-else class="incorrect-question">
           <span>{{ `${round.question} ` }} </span>
           <span v-if="round.guess === undefined">Not answered!</span>
-          <span v-else>{{ `Wrong! Your Answer: #${round.guess.num} ${round.guess.name}` }}</span>
-          <span>{{ ` - Correct Answer: ${round.answer.name}` }}</span>
+          <span v-else>
+            {{ `Wrong! Your Answer: #${round.guess.num} ` }}<PokemonName :pokemon="round.guess" />
+          </span>
+          <span> - Correct Answer: <PokemonName :pokemon="round.answer" /></span>
         </div>
       </li>
     </ul>
