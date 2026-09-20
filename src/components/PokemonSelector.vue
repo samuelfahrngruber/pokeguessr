@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import PokemonIcon from './PokemonIcon.vue';
 import { usePokemonListStore, type Pokemon } from '@/stores/pokemon-list';
@@ -11,8 +11,19 @@ const gameStore = useGameStore();
 
 const searchTerm = ref('');
 
-const suggestions = computed(() => pokemonListStore.search(searchTerm.value));
+const suggestions = computed(() => {
+  const matches = [...pokemonListStore.search(searchTerm.value)];
+  for (let index = matches.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [matches[index], matches[randomIndex]] = [matches[randomIndex]!, matches[index]!];
+  }
+  return matches;
+});
 const highlightedSuggestion = ref(0);
+
+watch(suggestions, () => {
+  highlightedSuggestion.value = 0;
+});
 
 const changeSuggestion = (delta: number) => (ev: KeyboardEvent) => {
   if (delta !== 0) {
